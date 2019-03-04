@@ -1,0 +1,162 @@
+新建目录
+
+git init 初始化一个新的仓库
+
+	$ ll .git/
+	total 7
+	-rw-r--r-- 1 lenovo 197609 130 1月   2 12:10 config
+	-rw-r--r-- 1 lenovo 197609  73 1月   2 12:10 description
+	-rw-r--r-- 1 lenovo 197609  23 1月   2 12:10 HEAD
+	drwxr-xr-x 1 lenovo 197609   0 1月   2 12:10 hooks/
+	drwxr-xr-x 1 lenovo 197609   0 1月   2 12:10 info/
+	drwxr-xr-x 1 lenovo 197609   0 1月   2 12:10 objects/
+	drwxr-xr-x 1 lenovo 197609   0 1月   2 12:10 refs/
+
+	不要删除，也尽量不要修改
+
+设置签名
+	用户名：
+	email地址：
+	作用：区分不用开发人员的身份
+	这里设置的签名和登录远程库没有一点关系
+
+	命令
+		git config user.name 用户名
+		git config user.email 用户名邮箱
+		项目级别/仓库级别 ：仅在当前库范围有效
+
+		系统级别用户：登录当前操作系统的用户范围
+		git config --global	
+	优先级：就近原则，项目级别优先
+	二者必须设置一个
+
+	$ cat .git/config
+	[core]
+	        repositoryformatversion = 0
+	        filemode = false
+	        bare = false
+	        logallrefupdates = true
+	        symlinks = false
+	        ignorecase = true
+	[user]
+	        name = cxy
+	        email = a@lxxxjs.cn
+	
+	$ cat ~/.gitconfig
+	[user]
+	        name = cxy_glb
+	        email = cxy_glb@lxxxjs.cn
+
+	git status
+		On branch master  分支
+
+		No commits yet    没有提交过的文件
+
+		nothing to commit (create/copy files and use "git add" to track)
+	添加 缓存区
+	 git add test.txt(文件名)
+	移除 缓存区
+	 git rm --cached <file>
+	提交
+	 git commit test.txt(文件名)
+	 	//直接加注释
+	 git commit -m "my second commit,modify test.txt" test.txt
+
+	日志
+		git log
+
+		git log --pretty=oneline
+
+		git reflog
+
+	版本的前进和后退
+		HEAD指针
+			基于索引值   推荐
+				git reset --hard 索引值
+		下面的只能后退		
+			基于^符号
+				git reset --hard HEAD^ (一个^代表后退一个版本，后退多个用多个^^^标识)
+			基于~符号
+				git reset --hard HEAD~回退的步数
+	文件的删除与恢复
+		删除文件
+			git add 添加纪录
+			git commit 提交记录
+			git reset --herd   版本回退
+	文件比较
+		git diff 
+			将工作区的文件和暂存区的文件进行比较
+		git diff [历史版本] [文件名]
+
+分支
+	提高开发效率
+		branch 
+		git branch -v 查看分支
+	创建分支
+		git branch [创建分支]
+	切换分支
+		git checkout [分支名] 切换分支
+	合并分支
+		切换到主分支  master 
+		执行 merge
+			git merge [合并的分支名]
+	解决冲突
+		手动解决
+			>>>>HEAD
+			old 版本
+			========
+			其他 版本
+
+		git add [文件名] 添加
+		git commit 提交 （不要文件名）
+
+远程库
+	git remote -v
+
+	git remote add origin(别名) https地址
+
+	推送
+		git push [别名] [分支名]
+	克隆
+		git clone 远程仓库地址
+
+	拉取团队
+		仓库地址
+			Settings -> Collaborators -> add Collaborators 
+
+	拉取 pull 
+		git pull origin master
+		fetch
+			git fetch origin master
+				git checkout origin/master
+				git merge origin/master
+	冲突 
+		按照分支冲突解决
+
+
+	外援
+		fork
+			clone
+			add
+			commit
+				pull requests
+					new pull requests
+					Create pull requests
+
+					merge pull requests  备注
+
+
+	SSH登陆	
+			cd ~
+		删除 .ssh 目录
+			rm -rvf .ssh
+		运行命令生成 .ssh密匙目录
+			ssh-keygen -t rsa -C [账户]
+		进入.ssh 目录查看文件列表
+			cd .ssh
+			ls -lF
+		查看id_rsa.pub
+			cat id_rsa.pub
+		复制 id_rsa.pub 文件内容 登录girhub。头像，Setting，SSH and GPG keys
+		New SSH Key
+		输入复制的密匙信息
