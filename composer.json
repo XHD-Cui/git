@@ -1,0 +1,11 @@
+{
+    "name": "xhd-cui/git",
+    "description": "composer study test",
+    "authors": [
+        {
+            "name": "cxy",
+            "email": "a@lxxxjs.cn"
+        }
+    ],
+    "require": {}
+}
